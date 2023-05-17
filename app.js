@@ -222,7 +222,7 @@ const getAccountBalance = () => {
         console.error('Error fetching account balance:', error.message);
     }).end();
 };
-// getAccountBalance(); 
+// setTimeout(getAccountBalance, 500); 
 
 let openPositions = [];
 // get open positions
