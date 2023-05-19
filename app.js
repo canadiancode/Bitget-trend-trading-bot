@@ -276,9 +276,6 @@ async function checkOpenPositions() {
           response.data.forEach(data => {
             openPositions.push(data.total);
           });
-          console.log(`Open positions: ${openPositions}`);
-          console.log(`Type of open positions: ${typeof openPositions}`)
-
           resolve(response);
         } catch (error) {
           reject(new Error('Error parsing response: ' + error.message));
