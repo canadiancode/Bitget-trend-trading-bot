@@ -367,7 +367,8 @@ function generateClientOid() {
     return `${prefix}-${timestamp}-${randomPart}`;
 };
 generateClientOid();
-clientOid = generateClientOid();
+let clientOid = generateClientOid();
+console.log(`client Oid: ${clientOid}`);
 
 // open order
 function createOrder(direction, positionSize) {
@@ -508,8 +509,6 @@ async function closePosition(trackingNo) {
 /////////////////////////////////////////////////////////////
 // LONG, SHORT, EXIT FUNCTIONS -- LONG, SHORT, EXIT FUNCTIONS
 /////////////////////////////////////////////////////////////
-
-let clientOid = '';
 
 async function postLongOrderEntry() {
   tradeDirection = 'long';
