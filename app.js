@@ -537,7 +537,7 @@ async function postExitOrder() {
   await checkOpenPositions();
 
   if (openPositions.length === 0) {
-    console.log('No positioned open.')
+    console.log('No positioned open')
   } else if (openPositions[0] === '0' && openPositions[1] === '0') {
     console.log('All positions closed.');
   } else {
