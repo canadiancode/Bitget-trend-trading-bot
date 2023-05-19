@@ -366,6 +366,7 @@ function generateClientOid() {
     const randomPart = Math.floor(Math.random() * 1e6);
     return `${prefix}-${timestamp}-${randomPart}`;
 };
+generateClientOid();
 clientOid = generateClientOid();
 
 // open order
