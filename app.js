@@ -222,7 +222,7 @@ const getAccountBalance = () => {
         console.error('Error fetching account balance:', error.message);
     }).end();
 };
-// setTimeout(getAccountBalance, 500); 
+getAccountBalance();
 
 let openPositions = [];
 // get open positions
@@ -290,7 +290,6 @@ async function checkOpenPositions() {
     req.end();
   });
 };
-setTimeout(checkOpenPositions, 1000);
 
 // Fetch order number
 let trackingNumber = '';
@@ -361,21 +360,24 @@ function getTrackingNumber() {
 // ORDER FUNCTIONS -- ORDER FUNCTIONS -- ORDER FUNCTIONS
 ////////////////////////////////////////////////////////
 
+function generateClientOid() {
+    const prefix = 'myapp';
+    const timestamp = Date.now();
+    const randomPart = Math.floor(Math.random() * 1e6);
+    return `${prefix}-${timestamp}-${randomPart}`;
+};
+clientOid = generateClientOid();
+
 // open order
 function createOrder(direction, positionSize) {
+
+    clientOid = generateClientOid();
+    console.log(`client Oid: ${clientOid}`);
 
   const timestamp = Date.now().toString();
   const method = 'POST';
   const path = '/api/mix/v1/order/placeOrder';
   const baseURL = 'https://api.bitget.com';
-
-  const generateClientOid = () => {
-    const prefix = 'myapp';
-    const timestamp = Date.now();
-    const randomPart = Math.floor(Math.random() * 1e6);
-    return `${prefix}-${timestamp}-${randomPart}`;
-  };
-  clientOid = generateClientOid();
 
   const requestBody = JSON.stringify({
     symbol: 'BTCUSDT_UMCBL',
@@ -512,7 +514,7 @@ async function postLongOrderEntry() {
   tradeDirection = 'long';
 
   await getAccountBalance();
-  await createOrder('open_long', positionSize) // direction, positionSize, clientOid
+  await createOrder('open_long', positionSize) // direction, positionSize
 };
 // setTimeout(postLongOrderEntry, 5000);
 
@@ -520,7 +522,7 @@ async function postShortOrderEntry() {
   tradeDirection = 'short';
 
   await getAccountBalance();
-  await createOrder('open_short', positionSize)  // direction, positionSize, clientOid
+  await createOrder('open_short', positionSize)  // direction, positionSize
 };
 // setTimeout(postShortOrderEntry, 5000);
 
