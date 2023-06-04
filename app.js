@@ -156,7 +156,25 @@ const secret = process.env.BITGET_API_SECRET;
 const passphrase = process.env.API_PASSPHRASE;
 
 const https = require('https');
+
+// Changes June 3rd:
 const { HttpsProxyAgent } = require('https-proxy-agent');
+console.log('If statement for proxy');
+if (process.env.QUOTAGUARDSTATIC_URL) {
+  try {
+
+    console.log(HttpsProxyAgent); 
+    const agent = new HttpsProxyAgent(process.env.QUOTAGUARDSTATIC_URL);
+    axios.defaults.httpsAgent = agent;
+    axios.defaults.httpAgent = agent;
+    console.log('Proxy settings applied for Axios.');
+
+  } catch(error) {
+    console.log('Error setting up Axios proxy:', error)
+  }
+} else {
+  console.log('No proxy settings applied for Axios; QUOTAGUARDSTATIC_URL is not set.');
+}
 
 let availableBalance = '0';
 let leverage = 1;
@@ -183,7 +201,7 @@ const getAccountBalance = () => {
       'ACCESS-PASSPHRASE': passphrase,
     };
 
-    const proxy = 'http://ghakmyawgi92qf:1eqrene038e5x6pgf606qjcs3eawdy@us-east-static-09.quotaguard.com:9293';
+    const proxy = process.env.QUOTAGUARDSTATIC_URL;
     const agent = new HttpsProxyAgent(proxy);
   
     const options = {
@@ -251,7 +269,7 @@ async function checkOpenPositions() {
     'ACCESS-PASSPHRASE': passphrase,
   };
 
-  const proxy = 'http://ghakmyawgi92qf:1eqrene038e5x6pgf606qjcs3eawdy@us-east-static-09.quotaguard.com:9293';
+  const proxy = process.env.QUOTAGUARDSTATIC_URL;
   const agent = new HttpsProxyAgent(proxy);
 
   const options = {
@@ -315,7 +333,7 @@ function getTrackingNumber() {
     'ACCESS-PASSPHRASE': passphrase,
   };
 
-  const proxy = 'http://ghakmyawgi92qf:1eqrene038e5x6pgf606qjcs3eawdy@us-east-static-09.quotaguard.com:9293';
+  const proxy = process.env.QUOTAGUARDSTATIC_URL;
   const agent = new HttpsProxyAgent(proxy);
 
   const options = {
@@ -407,7 +425,7 @@ function createOrder(direction, positionSize) {
     'ACCESS-PASSPHRASE': passphrase,
   };
 
-  const proxy = 'http://ghakmyawgi92qf:1eqrene038e5x6pgf606qjcs3eawdy@us-east-static-09.quotaguard.com:9293';
+  const proxy = process.env.QUOTAGUARDSTATIC_URL;
   const agent = new HttpsProxyAgent(proxy);
 
   const options = {
@@ -469,7 +487,7 @@ async function closePosition(trackingNo) {
     'ACCESS-PASSPHRASE': passphrase,
   };
 
-  const proxy = 'http://ghakmyawgi92qf:1eqrene038e5x6pgf606qjcs3eawdy@us-east-static-09.quotaguard.com:9293';
+  const proxy = process.env.QUOTAGUARDSTATIC_URL;
   const agent = new HttpsProxyAgent(proxy);
 
   const options = {
