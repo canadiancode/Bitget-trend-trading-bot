@@ -176,6 +176,7 @@ if (process.env.QUOTAGUARDSTATIC_URL) {
   console.log('No proxy settings applied for Axios; QUOTAGUARDSTATIC_URL is not set.');
 }
 
+// getting the account balance
 let availableBalance = '0';
 let leverage = 1;
 let positionSize = 0;
